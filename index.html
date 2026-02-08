@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeverageAI - One Pager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --lime: #d4ff00;
+            --lime-dark: #b8e600;
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --gray: #666666;
+            --border: 4px solid var(--black);
+            --border-thin: 2px solid var(--black);
+            --radius: 16px;
+            --radius-sm: 8px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--lime);
+            color: var(--black);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Grid pattern background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .nav-badge {
+            background: var(--black);
+            color: var(--lime);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--black);
+            color: var(--lime);
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 32px;
+        }
+
+        .hero h1 {
+            font-size: clamp(56px, 12vw, 120px);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -4px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            font-weight: 500;
+            opacity: 0.7;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section */
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.5;
+            margin-bottom: 16px;
+        }
+
+        .section-heading {
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            line-height: 1.1;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            border: var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0 var(--black);
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-3, .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Entry Table */
+        .table-card {
+            background: var(--white);
+            border: var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            border-bottom: var(--border-thin);
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-row.header {
+            background: var(--black);
+            color: var(--lime);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .table-row.highlight {
+            background: var(--lime);
+            font-weight: 700;
+        }
+
+        .table-cell {
+            padding: 20px 24px;
+            border-right: var(--border-thin);
+        }
+
+        .table-cell:last-child {
+            border-right: none;
+        }
+
+        .table-row.header .table-cell {
+            border-color: rgba(212, 255, 0, 0.3);
+        }
+
+        /* Quote Card */
+        .quote-card {
+            background: var(--black);
+            color: var(--white);
+            border: var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 24px;
+            font-size: 80px;
+            color: var(--lime);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: var(--black);
+            color: var(--lime);
+            border: var(--border);
+            border-radius: var(--radius);
+            padding: 32px 40px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* Feature Card */
+        .feature-card {
+            background: var(--white);
+            border: var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0 var(--black);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            opacity: 0.7;
+            line-height: 1.5;
+        }
+
+        /* Stat Card */
+        .stat-card {
+            background: var(--white);
+            border: var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0 var(--black);
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.6;
+        }
+
+        /* Roadmap */
+        .roadmap-card {
+            background: var(--white);
+            border: var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .roadmap-item {
+            display: flex;
+            border-bottom: var(--border-thin);
+        }
+
+        .roadmap-item:last-child {
+            border-bottom: none;
+        }
+
+        .roadmap-phase {
+            width: 120px;
+            flex-shrink: 0;
+            background: var(--black);
+            color: var(--lime);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .roadmap-content {
+            flex: 1;
+            padding: 24px;
+        }
+
+        .roadmap-title {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .roadmap-goal {
+            font-size: 13px;
+            color: var(--gray);
+            margin-bottom: 12px;
+        }
+
+        .roadmap-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .roadmap-tag {
+            background: var(--lime);
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 4px;
+        }
+
+        /* Team Card */
+        .team-card {
+            background: var(--white);
+            border: var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0 var(--black);
+        }
+
+        .team-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .team-role {
+            display: inline-block;
+            background: var(--lime);
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .team-company {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: var(--border-thin);
+        }
+
+        .team-list {
+            list-style: none;
+        }
+
+        .team-list li {
+            font-size: 13px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .team-list li:last-child {
+            border-bottom: none;
+        }
+
+        .team-list strong {
+            color: var(--black);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--black);
+            border: var(--border);
+            border-radius: var(--radius);
+            padding: 80px 40px;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta-title {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.5;
+            margin-bottom: 16px;
+        }
+
+        .cta-status {
+            font-size: 18px;
+            opacity: 0.7;
+            margin-bottom: 24px;
+        }
+
+        .cta-valuation {
+            font-size: clamp(48px, 10vw, 80px);
+            font-weight: 700;
+            color: var(--lime);
+            letter-spacing: -3px;
+        }
+
+        /* Thesis */
+        .thesis-card {
+            background: var(--white);
+            border: var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .thesis-row {
+            display: grid;
+            grid-template-columns: 140px 1fr 180px;
+            border-bottom: var(--border-thin);
+            align-items: center;
+        }
+
+        .thesis-row:last-child {
+            border-bottom: none;
+        }
+
+        .thesis-era {
+            padding: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+            background: #f5f5f5;
+        }
+
+        .thesis-entry {
+            padding: 24px;
+            font-weight: 600;
+        }
+
+        .thesis-value {
+            padding: 24px;
+            font-weight: 700;
+            color: var(--black);
+            background: var(--lime);
+            text-align: right;
+        }
+
+        .thesis-final {
+            background: var(--lime);
+            text-align: center;
+            padding: 48px;
+        }
+
+        .thesis-final p {
+            font-size: 36px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            opacity: 0.5;
+            font-size: 14px;
+        }
+
+        /* Product Showcase */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .showcase-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .showcase-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .showcase-item {
+            background: var(--white);
+            border: var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .showcase-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0 var(--black);
+        }
+
+        .showcase-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Floating elements */
+        .float-element {
+            position: fixed;
+            background: var(--black);
+            border-radius: 50%;
+            opacity: 0.05;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .float-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            right: -100px;
+        }
+
+        .float-2 {
+            width: 200px;
+            height: 200px;
+            bottom: 20%;
+            left: -50px;
+        }
+
+        .float-3 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            right: 10%;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 48px;
+                letter-spacing: -2px;
+            }
+
+            .section-heading {
+                font-size: 32px;
+            }
+
+            .table-row {
+                grid-template-columns: 1fr;
+            }
+
+            .table-cell {
+                border-right: none;
+                border-bottom: var(--border-thin);
+            }
+
+            .table-cell:last-child {
+                border-bottom: none;
+            }
+
+            .roadmap-item {
+                flex-direction: column;
+            }
+
+            .roadmap-phase {
+                width: 100%;
+            }
+
+            .thesis-row {
+                grid-template-columns: 1fr;
+            }
+
+            .thesis-era, .thesis-entry, .thesis-value {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+    <div class="float-element float-1"></div>
+    <div class="float-element float-2"></div>
+    <div class="float-element float-3"></div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <div class="logo">LeverageAI</div>
+            <div class="nav-badge">Angel Round</div>
+        </nav>
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-badge">$20M Valuation</div>
+            <h1>Mobile Agent.<br>Unleashed.</h1>
+            <p class="hero-subtitle">The world's first mobile-native AI Agent app. Control your computer from your pocket.</p>
+        </section>
+
+        <!-- Entry Point Battle -->
+        <section>
+            <p class="section-title">The Opportunity</p>
+            <h2 class="section-heading">The Battle for the Entry Point</h2>
+
+            <div class="table-card">
+                <div class="table-row header">
+                    <div class="table-cell">Era</div>
+                    <div class="table-cell">Super Entry Point</div>
+                    <div class="table-cell">Winner</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">Web 1.0</div>
+                    <div class="table-cell">Operating System</div>
+                    <div class="table-cell">Microsoft</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">Web 2.0</div>
+                    <div class="table-cell">Search</div>
+                    <div class="table-cell">Google</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">Web 3.0</div>
+                    <div class="table-cell">Mobile Content Distribution</div>
+                    <div class="table-cell">TikTok</div>
+                </div>
+                <div class="table-row highlight">
+                    <div class="table-cell">AI Agent Era</div>
+                    <div class="table-cell">Efficiency Service Distribution</div>
+                    <div class="table-cell">?</div>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 24px;">
+                Whoever controls the Agent entry point controls traffic distribution in the AI era.
+            </div>
+        </section>
+
+        <!-- Gold Mine -->
+        <section>
+            <p class="section-title">The Problem</p>
+            <h2 class="section-heading">An Untapped Gold Mine</h2>
+
+            <div class="quote-card" style="margin-bottom: 24px;">
+                The 'Code' in Claude Code's name is misleading — it's actually a general-purpose AI agent that can do almost anything on your computer.
+            </div>
+
+            <p style="font-size: 18px; margin-bottom: 32px; opacity: 0.8;">
+                <strong>Claude Code has proven Agent power</strong> — but 99% of people can't access it.
+            </p>
+
+            <div class="grid-3">
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <div class="feature-title">Requires Terminal</div>
+                    <div class="feature-desc">Only developers can use it</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <div class="feature-title">Local Deployment</div>
+                    <div class="feature-desc">High technical barrier</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <div class="feature-title">Environment Config</div>
+                    <div class="feature-desc">Ordinary people give up</div>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 24px;">
+                The value is proven. Accessibility is the bottleneck. Expanding accessibility IS the opportunity.
+            </div>
+        </section>
+
+        <!-- Market Validation -->
+        <section>
+            <p class="section-title">Validation</p>
+            <h2 class="section-heading">Manus → Meta $2-3B</h2>
+
+            <div class="grid-4">
+                <div class="stat-card">
+                    <div class="stat-value">MAR 2025</div>
+                    <div class="stat-label">Launched</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">iOS/Android</div>
+                    <div class="stat-label">Platforms</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">$39-199</div>
+                    <div class="stat-label">Monthly</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">$2-3B</div>
+                    <div class="stat-label">Acquisition</div>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 24px;">
+                Our conviction: Mobile App is the right entry point for AI Agents.
+            </div>
+        </section>
+
+        <!-- Why Mobile -->
+        <section>
+            <p class="section-title">Why Mobile</p>
+            <h2 class="section-heading">Mobile Wins</h2>
+
+            <div class="grid-4">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">Zero Deployment</div>
+                    <div class="feature-desc">Everyone has a phone, no setup needed</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <div class="feature-title">Global Distribution</div>
+                    <div class="feature-desc">App Store reaches billions</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Anytime, Anywhere</div>
+                    <div class="feature-desc">Works in fragmented time</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <div class="feature-title">Connect Everything</div>
+                    <div class="feature-desc">Bridge PC, cloud, services</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What We Built -->
+        <section>
+            <p class="section-title">Product</p>
+            <h2 class="section-heading">AI Agent in Your Pocket</h2>
+
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <img src="8c0f17c8-0136-48fc-8dbd-89eeba867a87.png" alt="AI That Knows Your Context">
+                </div>
+                <div class="showcase-item">
+                    <img src="2ca3c112-b353-4e3b-a8cc-efba604085f4.png" alt="Connect Any Environment">
+                </div>
+                <div class="showcase-item">
+                    <img src="643f70ec-ecb1-411b-90ec-b84b4c0749b6.png" alt="Full Visibility, Full Control">
+                </div>
+                <div class="showcase-item">
+                    <img src="0745ff09-b711-435c-bc40-4b63c9253d98.png" alt="From Thought to Done">
+                </div>
+            </div>
+
+            <div class="grid-4" style="margin-top: 24px;">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <div class="feature-title">Context Aware</div>
+                    <div class="feature-desc">AI that knows your files, your system, your workflow.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖥️</div>
+                    <div class="feature-title">Multi-Environment</div>
+                    <div class="feature-desc">Connect multiple PCs. Switch instantly.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👁️</div>
+                    <div class="feature-title">Full Visibility</div>
+                    <div class="feature-desc">See every command. Full transparency.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <div class="feature-title">Thought → Done</div>
+                    <div class="feature-desc">From idea to execution in seconds.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap -->
+        <section>
+            <p class="section-title">Roadmap</p>
+            <h2 class="section-heading">From Tool to Platform</h2>
+
+            <div class="roadmap-card">
+                <div class="roadmap-item">
+                    <div class="roadmap-phase">Phase 1</div>
+                    <div class="roadmap-content">
+                        <div class="roadmap-title">Foundation</div>
+                        <div class="roadmap-goal">Bring Claude Code-level Agent to everyone</div>
+                        <div class="roadmap-tags">
+                            <span class="roadmap-tag">Core Agent</span>
+                            <span class="roadmap-tag">PC Bridging</span>
+                            <span class="roadmap-tag">File Gen</span>
+                            <span class="roadmap-tag">iOS Launch</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-phase">Phase 2</div>
+                    <div class="roadmap-content">
+                        <div class="roadmap-title">Community</div>
+                        <div class="roadmap-goal">Build mobile Agent Skills ecosystem</div>
+                        <div class="roadmap-tags">
+                            <span class="roadmap-tag">Skills Market</span>
+                            <span class="roadmap-tag">User Skills</span>
+                            <span class="roadmap-tag">Plugins</span>
+                            <span class="roadmap-tag">Templates</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-phase">Phase 3</div>
+                    <div class="roadmap-content">
+                        <div class="roadmap-title">Cloud Market</div>
+                        <div class="roadmap-goal">From personal PC to cloud computing</div>
+                        <div class="roadmap-tags">
+                            <span class="roadmap-tag">Cloud Rental</span>
+                            <span class="roadmap-tag">Workspaces</span>
+                            <span class="roadmap-tag">Enterprise</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-phase">Phase 4</div>
+                    <div class="roadmap-content">
+                        <div class="roadmap-title">Context Hub</div>
+                        <div class="roadmap-goal">Central hub for digital life</div>
+                        <div class="roadmap-tags">
+                            <span class="roadmap-tag">Connect PC</span>
+                            <span class="roadmap-tag">Connect Apps</span>
+                            <span class="roadmap-tag">Cloud Services</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-phase">Endgame</div>
+                    <div class="roadmap-content">
+                        <div class="roadmap-title">Service Distribution Platform</div>
+                        <div class="roadmap-goal">Control AI-era traffic distribution</div>
+                        <div class="roadmap-tags">
+                            <span class="roadmap-tag">Service Intermediary</span>
+                            <span class="roadmap-tag">Voice-to-Done</span>
+                            <span class="roadmap-tag">Traffic Rights</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Now -->
+        <section>
+            <p class="section-title">Timing</p>
+            <h2 class="section-heading">The Window is Open</h2>
+
+            <div class="grid-3">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <div class="feature-title">Models Are Ready</div>
+                    <div class="feature-desc">Tool use is mature (Claude 4, GPT-4o). Long context supports complex planning.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <div class="feature-title">Concept Validated</div>
+                    <div class="feature-desc">Claude Code proved autonomous tasks. Manus proved mobile value ($2-3B).</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Entry Point Vacant</div>
+                    <div class="feature-desc">Everyone building terminal/web. Manus acquired. <strong>6-12 month window.</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team -->
+        <section>
+            <p class="section-title">Team</p>
+            <h2 class="section-heading">We've Built #1 Apps. More Than Once.</h2>
+
+            <div class="grid-2">
+                <div class="team-card">
+                    <div class="team-name">Louis Xu</div>
+                    <div class="team-role">Founder & CEO</div>
+                    <div class="team-company">Former Meta — User Growth & Video Ads Lead</div>
+                    <ul class="team-list">
+                        <li>Scaled video DR ads <strong>$400K → $40M/day</strong></li>
+                        <li>Built <strong>LiveIn</strong> (App Store #1, 2M DAU)</li>
+                        <li>Cold start, growth models, global expansion</li>
+                        <li>400+ person team management</li>
+                    </ul>
+                </div>
+                <div class="team-card">
+                    <div class="team-name">Jack Tan</div>
+                    <div class="team-role">Co-founder & CTO</div>
+                    <div class="team-company">CMU CS | ACM-ICPC NA Gold Medal (#6)</div>
+                    <ul class="team-list">
+                        <li>Former <strong>Google/YouTube</strong> — 5 years</li>
+                        <li>Recommendation systems & content moderation</li>
+                        <li>Built GPU cloud rental platform</li>
+                        <li>Distributed systems & AI infrastructure</li>
+                    </ul>
+                </div>
+                <div class="team-card">
+                    <div class="team-name">Sky Cheng</div>
+                    <div class="team-role">Product</div>
+                    <div class="team-company">Former LiveIn Product Lead (App Store #1)</div>
+                    <ul class="team-list">
+                        <li>Led <strong>Sango</strong> interaction design (50M users)</li>
+                        <li>Mobile UX specialist</li>
+                        <li>Viral product mechanics</li>
+                    </ul>
+                </div>
+                <div class="team-card">
+                    <div class="team-name">Gaffey Wang</div>
+                    <div class="team-role">Growth</div>
+                    <div class="team-company">Multiple Hit App Growth Lead</div>
+                    <ul class="team-list">
+                        <li><strong>LiveIn</strong> (#1), <strong>Clapper</strong> (#2)</li>
+                        <li><strong>QuestionAI</strong> (Education #1)</li>
+                        <li><strong>Poly AI, Rizzkey</strong> (Category #1)</li>
+                        <li>Cultural trends & growth hacking</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market -->
+        <section>
+            <p class="section-title">Market</p>
+            <h2 class="section-heading">Explosive Growth</h2>
+
+            <div class="grid-4">
+                <div class="stat-card">
+                    <div class="stat-value">$7.8B</div>
+                    <div class="stat-label">Market 2025</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">$52.6B</div>
+                    <div class="stat-label">Market 2030</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">46%</div>
+                    <div class="stat-label">CAGR</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">60%+</div>
+                    <div class="stat-label">Software Share 2030</div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 16px; font-size: 12px; opacity: 0.5;">
+                Source: MarketsandMarkets, Grand View Research
+            </p>
+        </section>
+
+        <!-- CTA -->
+        <section>
+            <div class="cta-section">
+                <div class="cta-title">Investment Opportunity</div>
+                <div class="cta-status">Beta stage • App Store launch imminent</div>
+                <div class="cta-valuation">$20M Valuation</div>
+            </div>
+        </section>
+
+        <!-- Thesis -->
+        <section>
+            <p class="section-title">The Thesis</p>
+            <h2 class="section-heading">Super Entry Points Win</h2>
+
+            <div class="thesis-card">
+                <div class="thesis-row">
+                    <div class="thesis-era">PC Era</div>
+                    <div class="thesis-entry">Search Super-Entry</div>
+                    <div class="thesis-value">Google: Trillion $</div>
+                </div>
+                <div class="thesis-row">
+                    <div class="thesis-era">Mobile Era</div>
+                    <div class="thesis-entry">Content Super-Entry</div>
+                    <div class="thesis-value">TikTok: $100B+</div>
+                </div>
+                <div class="thesis-row">
+                    <div class="thesis-era">AI Agent Era</div>
+                    <div class="thesis-entry">Efficiency Service Super-Entry</div>
+                    <div class="thesis-value">?</div>
+                </div>
+            </div>
+
+            <div class="thesis-final" style="margin-top: 24px; border-radius: var(--radius);">
+                <p>We're building it.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>LeverageAI © 2025</p>
+        </footer>
+    </div>
+</body>
+</html>
